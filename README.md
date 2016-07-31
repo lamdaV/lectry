@@ -1,5 +1,6 @@
 # Lectry
-**Lect**ure **R**eact **Y**outube is a tool to couple lecture questions with a lecture video hosted on Youtube.
+**Lect**ure **R**eact **Y**outube is a tool to couple lecture questions with a lecture video hosted on Youtube.  
+[Demo](https://lectry.herokuapp.com/#/)
 
 # How to Format Questions:
 

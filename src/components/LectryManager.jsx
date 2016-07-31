@@ -1,18 +1,31 @@
 var React = require("react");
+var Reflux =require("reflux");
 var Player = require("./Player.jsx");
 var QuestionPanel = require("./QuestionPanel.jsx");
+var VideoActions = require("../reflux/VideoActions.jsx");
+var VideoStore = require("../reflux/VideoStore.jsx");
 
 var LectryManager = React.createClass({
+  mixins: [Reflux.listenTo(VideoStore, "setVideoId")],
+
   propTypes: {
     assignmentId: React.PropTypes.string
   },
 
   getInitialState: function() {
-    return ({time: 0});
+    return ({time: 0, videoId: null});
   },
 
   handleProgress: function(time) {
     this.setState({time: time});
+  },
+
+  setVideoId: function(event, videoId) {
+    this.setState({videoId: videoId});
+  },
+
+  componentWillMount: function() {
+    VideoActions.postGetVideoId(this.props.assignmentId);
   },
 
   render: function() {
@@ -21,7 +34,7 @@ var LectryManager = React.createClass({
         {/* video */}
         <div className = "col-md-8">
           <h1> YouTube </h1>
-          <Player videoId = "qO4ZN5uZSVg" onProgress = {this.handleProgress} />
+          {this.state.videoId ? <Player videoId = {this.state.videoId} onProgress = {this.handleProgress} /> : null}
         </div>
 
         {/* questions */}

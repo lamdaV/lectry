@@ -1,35 +1,16 @@
 var React = require("react");
+var Reflux =require("reflux");
 var shortid = require("shortid");
 var MultiQuestion = require("./MultiQuestion.jsx");
-
-// Mock data.
-var questions = [
-  {
-    type: "multiple choice",
-    question: "What is a good example of a function?",
-    qid: 1,
-    answers: ["Only adding 1 + 1", "Returning 1 when called", "Adding some numbers 'a' and 'b'", "Functions are useless"],
-    time: 43
-  },
-  {
-    type: "multiple choice",
-    question: "Test Question 2",
-    qid: 2,
-    answers: ["sol1", "sol2", "sol3", "sol4"],
-    time: 20
-  },
-  {
-    type: "multiple choice",
-    question: "Test Question 3",
-    qid: 3,
-    answers: ["sol1", "sol2", "sol3", "sol4"],
-    time: 2
-  }
-];
+var QuestionActions = require("../reflux/QuestionActions.jsx");
+var QuestionStore = require("../reflux/QuestionStore.jsx");
 
 var QuestionPanel = React.createClass({
-  PropTypes: {
-    time: React.PropTypes.number
+  mixins: [Reflux.listenTo(QuestionStore, "setQuestions")],
+
+  propTypes: {
+    time: React.PropTypes.number,
+    assignmentId: React.PropTypes.string.isRequired
   },
 
   getInitialState: function() {
@@ -64,11 +45,17 @@ var QuestionPanel = React.createClass({
     this.submission[qid] = value;
   },
 
+  setQuestions: function(event, questions) {
+    console.log("QuestionPanel: " + questions);
+    this.setState({questions: questions});
+  },
+
   componentWillMount: function() {
     // TODO: POST to server to get questions move to function listener.
     // Using mock data for now.
-    questions.forEach(() => {this.questionKeys.push(shortid.generate())});
-    this.setState({questions: questions});
+    // questions.forEach(() => {this.questionKeys.push(shortid.generate())});
+    // this.setState({questions: questions});
+    QuestionActions.postGetQuestions(this.props.assignmentId);
   },
 
   componentWillReceiveProps: function(nextProps) {

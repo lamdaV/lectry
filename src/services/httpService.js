@@ -1,8 +1,7 @@
 var Fetch = require("whatwg-fetch");
 
 // Un/comment baseUrl depending on server hosting or local testing
-var baseUrl =  "https://lamdav-react-reddit.herokuapp.com";
-// var baseUrl = "http://localhost:8080";
+var baseUrl = "http://localhost:8080";
 
 var Service = {
   post: function(url, data) {

@@ -1,6 +1,5 @@
 var React = require("react");
 var shortid = require("shortid");
-var RadioGroup = require("react-radio-group");
 
 var MultiQuestion = React.createClass({
   propTypes: {

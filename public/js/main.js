@@ -38127,7 +38127,7 @@ var Fetch = require("whatwg-fetch");
 
 // Un/comment baseUrl depending on server hosting or local testing
 // var baseUrl = "http://localhost:8080";
-var baseUrl = "https://lectry.herokuapp.com/";
+var baseUrl = "https://lectry.herokuapp.com";
 
 var Service = {
   post: function (url, data) {
